@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from './components/Header';
+import Nav from './components/Nav/Nav';
 import Home from './pages/Home/Home';
 import { Route, Routes } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
       <div className="container mx-auto">
-        <Header />
+        <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
           {/* <Route path="login" element={} />
