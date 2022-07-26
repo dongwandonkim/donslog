@@ -7,7 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 function App() {
   return (
     <div className="App">
-      <div className="container mx-auto">
+      <div className="container mx-auto font-sans">
         <Nav />
         <Routes>
           <Route path="/" element={<Home />} />

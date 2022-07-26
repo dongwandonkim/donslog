@@ -6,9 +6,7 @@ function Login() {
       <div className="flex justify-center">
         <div className="flex w-1/2">
           <div className="grow px-8 py-6 mt-4 text-left bg-white">
-            <h3 className="text-2xl font-bold text-center">
-              Login to your account
-            </h3>
+            <h3 className="text-2xl text-center">Login to your account</h3>
             <form action="">
               <div className="mt-4 px-5">
                 <div>
