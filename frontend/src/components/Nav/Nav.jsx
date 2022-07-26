@@ -6,7 +6,7 @@ function Nav() {
       <div className="flex items-center justify-self-start">
         <div>Dongwan Kim</div>
       </div>
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-5">
         <div>About Me</div>
         <div>Blogs</div>
       </div>
