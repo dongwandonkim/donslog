@@ -1,13 +1,34 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema(
   {
-    email: { type: String, required: true },
-    password: { type: String, required: true },
-    role: { type: Enum, enum: ['admin', 'user'], default: 'user' },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: [true, 'Password is required'],
+      minlength: [8, 'Password must be at least 8 characters'],
+      select: false,
+    },
+    role: { type: String, enum: ['admin', 'user'], default: 'user' },
   },
   { timestamps: true }
 );
+
+userSchema.pre('save', async function (next) {
+  // if password is not modified, skip hashing
+  if (!this.isModified('password')) return next();
+  // hash password
+  this.password = await bcrypt.hash(this.password, 8);
+
+  next();
+});
 
 const User = mongoose.model('User', userSchema);
 

@@ -10,11 +10,8 @@ const app = express();
 app.use(
   cookieSession({
     name: 'session',
-    keys: [
-      /* secret keys */
-    ],
+    keys: [process.env.TOKEN_SECRET1, process.env.TOKEN_SECRET2],
 
-    // Cookie Options
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
   })
 );
@@ -27,5 +24,8 @@ app.use(
 );
 app.use(morgan('dev'));
 app.use(express.json());
+
+const userRouter = require('./routes/user.routes');
+app.use('/api/users', userRouter);
 
 module.exports = app;
