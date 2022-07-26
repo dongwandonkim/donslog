@@ -10,26 +10,22 @@ function Login() {
               Login to your account
             </h3>
             <form action="">
-              <div className="mt-4">
+              <div className="mt-4 px-5">
                 <div>
-                  <label className="block" for="email">
-                    Email
-                  </label>
                   <input
                     type="text"
                     placeholder="Email"
-                    className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 "
+                    className="w-full px-4 py-2 mt-3 border-b-2  focus:outline-none focus:ring-2 "
                   />
                 </div>
                 <div className="mt-4">
-                  <label className="block">Password</label>
                   <input
                     type="password"
                     placeholder="Password"
-                    className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-2 "
+                    className="w-full px-4 py-2 mt-3 border-b-2 focus:outline-none focus:ring-2 "
                   />
                 </div>
-                <div className="flex items-baseline justify-end space-x-4">
+                <div className="flex items-baseline justify-end space-x-5 mt-5">
                   <div className="mt-4 text-black  rounded-xs hover:cursor-pointer">
                     Login
                   </div>
