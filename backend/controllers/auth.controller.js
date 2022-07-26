@@ -40,7 +40,14 @@ const login = async (req, res) => {
   }
 };
 
+const logout = (req, res) => {
+  req.session = null;
+
+  res.send({ success: true, message: 'User logged out successfully' });
+};
+
 module.exports = {
   signup,
   login,
+  logout,
 };
