@@ -1,10 +1,8 @@
 const express = require('express');
-const dotenv = require('dotenv');
 const morgan = require('morgan');
 const cors = require('cors');
 const cookieSession = require('cookie-session');
-
-dotenv.config('./config/env');
+require('dotenv').config();
 
 const app = express();
 
@@ -21,7 +19,12 @@ app.use(
   })
 );
 
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  })
+);
 app.use(morgan('dev'));
 app.use(express.json());
 
