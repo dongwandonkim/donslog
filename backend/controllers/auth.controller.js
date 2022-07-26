@@ -4,9 +4,9 @@ const signup = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const newUser = await User.create({ email, password });
+    const user = await User.create({ email, password });
 
-    req.session.user = newUser._id;
+    req.session.user = { id: user._id, role: user.role };
 
     res.send({ success: true, message: 'User created successfully' });
   } catch (error) {
@@ -32,7 +32,7 @@ const login = async (req, res) => {
         .send({ success: false, message: 'Invalid email or password' });
     }
 
-    req.session.user = user._id;
+    req.session.user = { id: user._id, role: user.role };
 
     res.send({ success: true, message: 'User logged in successfully' });
   } catch (error) {
@@ -45,6 +45,23 @@ const logout = (req, res) => {
 
   res.send({ success: true, message: 'User logged out successfully' });
 };
+
+const protect = async (req, res, next) => {
+  if (!req.session.user) {
+    return res.status(401).send({ success: false, message: 'Unauthorized' });
+  }
+  req.user = req.session.user;
+  next();
+};
+
+const restrictTo =
+  (...roles) =>
+  async (req, res, next) => {
+    if (req.user && !roles.includes(req.session.user.role)) {
+      return res.status(401).send({ success: false, message: 'Unauthorized' });
+    }
+    next();
+  };
 
 module.exports = {
   signup,
