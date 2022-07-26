@@ -12,9 +12,9 @@ function Nav() {
       </div>
 
       <div className="flex items-center space-x-4">
-        {/* <div>Login</div> */}
+        <div>Login</div>
         <div>Logout</div>
-        {/* <div>Register</div> */}
+        <div>Register</div>
       </div>
     </div>
   );
