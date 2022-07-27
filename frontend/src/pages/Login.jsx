@@ -1,6 +1,23 @@
 import React from 'react';
 
 function Login() {
+  const [credentials, setCredentials] = React.useState({
+    email: '',
+    password: '',
+  });
+
+  const handleChange = (event) => {
+    setCredentials({
+      ...credentials,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(credentials);
+  };
+
   return (
     <div className="container mx-auto">
       <div className="flex justify-center">
@@ -13,18 +30,27 @@ function Login() {
                   <input
                     type="text"
                     placeholder="Email"
-                    className="w-full px-4 py-2 mt-3 border-b-2  focus:outline-none focus:ring-2 "
+                    name="email"
+                    className="w-full px-4 py-2 mt-3 border-b-2  focus:outline-none focus:ring-2"
+                    value={credentials.email}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="mt-4">
                   <input
                     type="password"
                     placeholder="Password"
-                    className="w-full px-4 py-2 mt-3 border-b-2 focus:outline-none focus:ring-2 "
+                    name="password"
+                    className="w-full px-4 py-2 mt-3 border-b-2 focus:outline-none focus:ring-2"
+                    value={credentials.password}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="flex items-baseline justify-end space-x-5 mt-5">
-                  <div className="mt-4 text-black  rounded-xs hover:cursor-pointer">
+                  <div
+                    className="mt-4 text-black  rounded-xs hover:cursor-pointer"
+                    onClick={handleSubmit}
+                  >
                     Login
                   </div>
                   <div className="text-sm text-blue-600 hover:underline">
