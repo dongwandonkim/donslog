@@ -27,5 +27,7 @@ app.use(express.json());
 
 const userRouter = require('./routes/user.routes');
 app.use('/api/users', userRouter);
+const blogRouter = require('./routes/blog.routes');
+app.use('/api/blogs', blogRouter);
 
 module.exports = app;

@@ -67,4 +67,6 @@ module.exports = {
   signup,
   login,
   logout,
+  protect,
+  restrictTo,
 };
