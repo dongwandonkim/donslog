@@ -1,6 +1,12 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginApi } from '../store/reducers/auth.reducers';
 
 function Login() {
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
   const [credentials, setCredentials] = React.useState({
     email: '',
     password: '',
@@ -15,8 +21,15 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(credentials);
+
+    dispatch(loginApi({ credentials }));
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      window.location.href = '/';
+    }
+  });
 
   return (
     <div className="container mx-auto">

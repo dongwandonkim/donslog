@@ -34,7 +34,11 @@ const login = async (req, res) => {
 
     req.session.user = { id: user._id, role: user.role };
 
-    res.send({ success: true, message: 'User logged in successfully' });
+    res.send({
+      success: true,
+      message: 'User logged in successfully',
+      data: user.email,
+    });
   } catch (error) {
     res.status(500).send({ success: false, message: error.message });
   }
