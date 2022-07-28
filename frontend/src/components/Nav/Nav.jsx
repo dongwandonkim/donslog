@@ -1,6 +1,9 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 function Nav() {
+  const { isAuthenticated } = useSelector((state) => state.auth);
+
   return (
     <div className="grid grid-cols-3 justify-items-center border-b-4 border-grey-500 h-16 text-xl">
       <div className="flex items-center justify-self-start">
@@ -12,9 +15,13 @@ function Nav() {
       </div>
 
       <div className="flex items-center space-x-4">
-        <div>Login</div>
-        <div>Logout</div>
-        <div>Register</div>
+        {isAuthenticated && <div>Logout</div>}
+        {!isAuthenticated && (
+          <>
+            <div>Login</div>
+            <div>Register</div>
+          </>
+        )}
       </div>
     </div>
   );

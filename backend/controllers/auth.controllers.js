@@ -14,6 +14,26 @@ const signup = async (req, res) => {
   }
 };
 
+const authCheck = async (req, res) => {
+  try {
+    const { user } = req.session;
+
+    if (!user) {
+      return res.status(401).send({ success: false, message: 'Unauthorized' });
+    }
+
+    const foundUser = await User.findById(req.session.user.id);
+    if (!foundUser) {
+      req.session = null;
+      return res.send({ success: false, message: 'User not found' });
+    }
+
+    res.send({ success: true, data: foundUser });
+  } catch (error) {
+    return res.status(500).send({ success: false, message: error.message });
+  }
+};
+
 const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -73,4 +93,5 @@ module.exports = {
   logout,
   protect,
   restrictTo,
+  authCheck,
 };

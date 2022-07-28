@@ -1,11 +1,13 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { loginApi } from '../store/reducers/auth.reducers';
 
 function Login() {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const [credentials, setCredentials] = React.useState({
     email: '',
@@ -27,9 +29,9 @@ function Login() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      window.location.href = '/';
+      navigate('/');
     }
-  });
+  }, [isAuthenticated]);
 
   return (
     <div className="container mx-auto">
