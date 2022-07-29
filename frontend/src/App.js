@@ -8,6 +8,7 @@ function App() {
   return (
     <div className="App">
       <div className="container mx-auto font-sans">
+        {/* <Nav isAuthenticated={isAuthenticated} /> */}
         <Nav />
         <Routes>
           <Route path="/" element={<Home />} />

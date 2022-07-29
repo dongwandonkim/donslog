@@ -1,5 +1,5 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginApi } from '../store/reducers/auth.reducers';

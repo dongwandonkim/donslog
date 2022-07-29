@@ -1,8 +1,22 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { getAuthStatus, logoutApi } from '../../store/reducers/auth.reducers';
 
 function Nav() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth);
+
+  const onLogout = () => {
+    dispatch(logoutApi());
+    navigate('/');
+  };
+
+  useEffect(() => {
+    dispatch(getAuthStatus());
+  }, [isAuthenticated]);
 
   return (
     <div className="grid grid-cols-3 justify-items-center border-b-4 border-grey-500 h-16 text-xl">
@@ -15,10 +29,10 @@ function Nav() {
       </div>
 
       <div className="flex items-center space-x-4">
-        {isAuthenticated && <div>Logout</div>}
+        {isAuthenticated && <button onClick={onLogout}>Logout</button>}
         {!isAuthenticated && (
           <>
-            <div>Login</div>
+            <button onClick={() => navigate('/login')}>Login</button>
             <div>Register</div>
           </>
         )}

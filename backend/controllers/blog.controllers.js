@@ -1,7 +1,36 @@
+const { isValidObjectId } = require('mongoose');
 const Blog = require('../models/Blog');
 
 const createBlog = async (req, res) => {
   try {
+    const { title, content, isPublished, userId } = req.body;
+    if (typeof title !== 'string' || !title.length) {
+      return res
+        .status(400)
+        .send({ success: false, message: 'Title is required' });
+    }
+    if (typeof content !== 'string' || !content.length) {
+      return res
+        .status(400)
+        .send({ success: false, message: 'Content is required' });
+    }
+    if (typeof isPublished !== 'boolean') {
+      return res
+        .status(400)
+        .send({ success: false, message: 'isPublish must be a boolean' });
+    }
+    if (!isValidObjectId(userId)) {
+      return res
+        .status(400)
+        .send({ success: false, message: 'userId is invalid' });
+    }
+
+    const blog = await Blog();
+    return res.send({
+      success: true,
+      message: isPublished ? 'Blog created and published' : 'Blog created',
+      data: blog,
+    });
   } catch (error) {
     return res.status(500).send({ success: false, message: error.message });
   }
