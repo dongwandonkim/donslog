@@ -9,10 +9,15 @@ function Editor() {
     console.log(v, e);
     setContent(v);
   };
+
+  const onSubmit = () => {};
+
   useEffect(() => {}, []);
+
   return (
     <>
       <MDEditor value={content} onChange={onChangeHandler} height={500} />
+      <button>Submit</button>
     </>
   );
 }

@@ -28,7 +28,10 @@ const authCheck = async (req, res) => {
       return res.send({ success: false, message: 'User not found' });
     }
 
-    res.send({ success: true, data: foundUser.email });
+    res.send({
+      success: true,
+      data: { email: foundUser.email, role: foundUser.role },
+    });
   } catch (error) {
     return res.status(500).send({ success: false, message: error.message });
   }

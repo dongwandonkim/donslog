@@ -11,12 +11,14 @@ function App() {
       <div className="container mx-auto font-sans">
         {/* <Nav isAuthenticated={isAuthenticated} /> */}
         <Nav />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="login" element={<Login />} />
-          {/* <Route path="register" element={} /> */}
-          <Route path="write" element={<Editor />} />
-        </Routes>
+        <div className="container mt-12">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="login" element={<Login />} />
+            {/* <Route path="register" element={} /> */}
+            <Route path="write" element={<Editor />} />
+          </Routes>
+        </div>
       </div>
     </div>
   );
