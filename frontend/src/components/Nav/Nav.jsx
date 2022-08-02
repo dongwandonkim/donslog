@@ -3,11 +3,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getAuthStatus, logoutApi } from '../../store/reducers/auth.reducers';
+import useGetRole from '../../hooks/useGetRole';
 
 function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isAuthenticated } = useSelector((state) => state.auth);
+  const role = useGetRole();
 
   const onLogout = () => {
     dispatch(logoutApi());
@@ -26,7 +28,9 @@ function Nav() {
       <div className="flex items-center space-x-5">
         <div>About Me</div>
         <div>Blogs</div>
-        {isAuthenticated && <div onClick={() => navigate('/write')}>Write</div>}
+        {isAuthenticated && role === 'admin' && (
+          <div onClick={() => navigate('/write')}>Write</div>
+        )}
       </div>
 
       <div className="flex items-center space-x-4">
