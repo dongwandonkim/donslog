@@ -26,10 +26,12 @@ function Nav() {
         <div>Dongwan Kim</div>
       </div>
       <div className="flex items-center space-x-5">
-        <div>About Me</div>
-        <div>Blogs</div>
+        <button className="p-2">About Me</button>
+        <button className="p-2">Blogs</button>
         {isAuthenticated && role === 'admin' && (
-          <div onClick={() => navigate('/write')}>Write</div>
+          <button className="p-2" onClick={() => navigate('/write')}>
+            Write
+          </button>
         )}
       </div>
 
