@@ -10,11 +10,12 @@ function App() {
   const role = useGetRole();
 
   return (
-    <div className="App">
+    <div className="App h-screen">
       <div className="container mx-auto font-sans">
-        {/* <Nav isAuthenticated={isAuthenticated} /> */}
-        <Nav />
-        <div className="container mt-12">
+        <div className="flex flex-col">
+          {/* <Nav isAuthenticated={isAuthenticated} /> */}
+          <Nav />
+
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="login" element={<Login />} />
