@@ -14,6 +14,7 @@ function Login() {
     email: '',
     password: '',
   };
+
   const { handleSubmit, handleChange, values } = useForm({ initialValues });
 
   const onSubmit = (values) => {
@@ -36,12 +37,12 @@ function Login() {
             <div className="mt-4 px-5">
               <div>
                 <input
-                  type="text"
-                  placeholder="Email"
                   name="email"
-                  className="w-full px-4 py-2 mt-3 border-b-2  focus:outline-none focus:ring-2"
+                  type="text"
                   value={values.email}
                   onChange={handleChange}
+                  placeholder="Email"
+                  className="w-full px-4 py-2 mt-3 border-b-2  focus:outline-none focus:ring-2"
                 />
               </div>
               <div className="mt-4">
@@ -57,7 +58,7 @@ function Login() {
               <div className="flex items-baseline justify-end space-x-5 mt-5">
                 <button
                   type="submit"
-                  className="mt-4 text-black  rounded-xs hover:cursor-pointer"
+                  className="mt-4 text-black rounded-xs hover:cursor-pointer"
                   onClick={handleSubmit(onSubmit)}
                 >
                   Login

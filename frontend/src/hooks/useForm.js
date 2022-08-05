@@ -17,6 +17,11 @@ export const useForm = ({ initialValues = {} } = {}) => {
     setValues((prevValues) => ({ ...prevValues, [name]: value }));
   };
 
+  const handleEditorChange = (value, e) => {
+    console.log(e);
+    setValues((prevValues) => ({ ...prevValues, content: value }));
+  };
+
   const handleSubmit = (onSubmit) => {
     return (e) => {
       if (e && typeof e.preventDefault === 'function') {
@@ -30,6 +35,7 @@ export const useForm = ({ initialValues = {} } = {}) => {
     values,
     setValues,
     handleChange,
+    handleEditorChange,
     handleSubmit,
   };
 };

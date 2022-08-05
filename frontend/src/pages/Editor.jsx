@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MDEditor from '@uiw/react-md-editor';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { createBlog } from '../store/reducers/blog.reducers';
+import { useForm } from '../hooks/useForm';
 
 function Editor() {
   const dispatch = useDispatch();
-  const { content, isPublished } = useSelector((state) => state.blog);
-  const [blog, setBlog] = useState({
+
+  const initialState = {
     title: '',
     content: '',
     isPublished: false,
+  };
+  const { handleSubmit, handleChange, handleEditorChange, values } = useForm({
+    initialState,
   });
 
-  const onChangeHandler = (content) => {
-    setBlog({ ...blog, content });
-  };
-
-  const onSubmit = () => {
-    dispatch(createBlog(blog));
+  const onSubmit = (values) => {
+    console.log(values);
+    // dispatch(createBlog(blog));
   };
 
   const onUploadClick = () => {
@@ -31,31 +32,35 @@ function Editor() {
     upload.click();
   };
 
-  const onIsPublishedCheck = (e) => {
-    setBlog({ ...blog, isPublished: e.target.checked });
-  };
-
   return (
     <div className="flex flex-col">
-      <input
-        name="title"
-        type="text"
-        className="border-b-4 mb-5 h-12 text-2xl"
-        placeholder="your title goes here"
-      />
-      <div className="flex-1">
-        <MDEditor
-          value={blog.content}
-          onChange={onChangeHandler}
-          height={800}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <input
+          name="title"
+          type="text"
+          value={values.title || ''}
+          onChange={handleChange}
+          className="border-b-4 mb-5 h-12 text-2xl"
+          placeholder="your title goes here"
         />
-      </div>
-      <input
-        type="checkbox"
-        checked={blog.isPublished}
-        onChange={onIsPublishedCheck}
-      />
-      <button onClick={onSubmit}>Submit</button>
+        <div className="flex-1">
+          <MDEditor
+            name="content"
+            value={values.content}
+            onChange={handleEditorChange}
+            height={800}
+          />
+        </div>
+        <input
+          name="isPublished"
+          type="checkbox"
+          checked={values.isPublished || false}
+          onChange={handleChange}
+        />
+        <button type="submit" onClick={handleSubmit(onSubmit)}>
+          Submit
+        </button>
+      </form>
     </div>
   );
 }
