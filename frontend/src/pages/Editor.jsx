@@ -1,21 +1,24 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import { useDispatch, useSelector } from 'react-redux';
 import { createBlog } from '../store/reducers/blog.reducers';
-import useElementSize from '../hooks/useElementSize';
 
 function Editor() {
   const dispatch = useDispatch();
-  const { content } = useSelector((state) => state.blog);
-  const editorWrapper = useRef(null);
-  const height = useElementSize(editorWrapper);
+  const { content, isPublished } = useSelector((state) => state.blog);
+  const [blog, setBlog] = useState({
+    title: '',
+    content: '',
+    isPublished: false,
+  });
 
-  const onChangeHandler = (v, e) => {
-    console.log(v, e);
-    dispatch(createBlog(v));
+  const onChangeHandler = (content) => {
+    setBlog({ ...blog, content });
   };
 
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    dispatch(createBlog(blog));
+  };
 
   const onUploadClick = () => {
     const upload = document.createElement('input');
@@ -27,12 +30,13 @@ function Editor() {
     };
     upload.click();
   };
-  useEffect(() => {
-    console.log('editor', height);
-  }, [height]);
+
+  const onIsPublishedCheck = (e) => {
+    setBlog({ ...blog, isPublished: e.target.checked });
+  };
 
   return (
-    <div ref={editorWrapper} className="flex flex-col">
+    <div className="flex flex-col">
       <input
         name="title"
         type="text"
@@ -41,15 +45,17 @@ function Editor() {
       />
       <div className="flex-1">
         <MDEditor
-          value={content}
+          value={blog.content}
           onChange={onChangeHandler}
-          height={height}
-          onHeightChange={(value, prev, state) => {
-            console.log(value, prev, state);
-          }}
+          height={800}
         />
       </div>
-      <button>Submit</button>
+      <input
+        type="checkbox"
+        checked={blog.isPublished}
+        onChange={onIsPublishedCheck}
+      />
+      <button onClick={onSubmit}>Submit</button>
     </div>
   );
 }

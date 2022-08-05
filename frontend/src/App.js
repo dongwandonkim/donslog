@@ -15,16 +15,17 @@ function App() {
         <div className="flex flex-col">
           {/* <Nav isAuthenticated={isAuthenticated} /> */}
           <Nav />
-
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="login" element={<Login />} />
-            {/* <Route path="register" element={} /> */}
-            <Route
-              path="write"
-              element={role === 'admin' ? <Editor /> : <>Not allowed</>}
-            />
-          </Routes>
+          <div className="container mt-14">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="login" element={<Login />} />
+              {/* <Route path="register" element={} /> */}
+              <Route
+                path="write"
+                element={role === 'admin' ? <Editor /> : <>Not allowed</>}
+              />
+            </Routes>
+          </div>
         </div>
       </div>
     </div>

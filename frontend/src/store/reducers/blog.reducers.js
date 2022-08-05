@@ -11,7 +11,8 @@ const blogSlice = createSlice({
   initialState: blogState,
   reducers: {
     createBlog: (state, action) => {
-      state.content = action.payload;
+      console.log(action.payload);
+      state.content = { ...state, ...action.payload };
     },
   },
 });
