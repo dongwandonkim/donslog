@@ -2,7 +2,7 @@ import apiClient from './index';
 
 export const login = async (email, password) => {
   try {
-    return await apiClient.post('/users/login', { email, password });
+    return await apiClient.post('users/login', { email, password });
   } catch (error) {
     return {
       error: error.response.data.message,

@@ -3,7 +3,8 @@ const Blog = require('../models/Blog');
 
 const createBlog = async (req, res) => {
   try {
-    const { title, content, isPublished, userId } = req.body;
+    const { title, content, isPublished } = req.body;
+
     if (typeof title !== 'string' || !title.length) {
       return res
         .status(400)
@@ -19,13 +20,19 @@ const createBlog = async (req, res) => {
         .status(400)
         .send({ success: false, message: 'isPublish must be a boolean' });
     }
-    if (!isValidObjectId(userId)) {
+    if (!isValidObjectId(req.user.id)) {
       return res
         .status(400)
         .send({ success: false, message: 'userId is invalid' });
     }
 
-    const blog = await Blog();
+    const blog = await Blog.create({
+      title,
+      content,
+      isPublished,
+      user: req.user.id,
+    });
+
     return res.send({
       success: true,
       message: isPublished ? 'Blog created and published' : 'Blog created',

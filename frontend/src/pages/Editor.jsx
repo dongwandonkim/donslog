@@ -1,24 +1,24 @@
 import React from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import { useDispatch } from 'react-redux';
-import { createBlog } from '../store/reducers/blog.reducers';
+import { postBlog } from '../store/reducers/blog.reducers';
 import { useForm } from '../hooks/useForm';
 
 function Editor() {
   const dispatch = useDispatch();
 
-  const initialState = {
+  const initialValues = {
     title: '',
     content: '',
     isPublished: false,
   };
   const { handleSubmit, handleChange, handleEditorChange, values } = useForm({
-    initialState,
+    initialValues,
   });
 
-  const onSubmit = (values) => {
-    console.log(values);
-    // dispatch(createBlog(blog));
+  const onSubmit = (blogData) => {
+    // console.log(blogData);
+    dispatch(postBlog({ blogData }));
   };
 
   const onUploadClick = () => {

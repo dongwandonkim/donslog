@@ -21,7 +21,7 @@ function Nav() {
   }, [isAuthenticated]);
 
   return (
-    <div className="grid grid-cols-3 justify-items-center border-b-4 border-grey-500 h-16 text-xl">
+    <div className="grid grid-cols-3 pt-4 justify-items-center border-b-2 border-black h-14 text-xl">
       <div className="flex items-center justify-self-start">
         <div>Dongwan Kim</div>
       </div>

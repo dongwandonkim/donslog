@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const useForm = ({ initialValues = {} } = {}) => {
+export const useForm = ({ initialValues = {} }) => {
   const [values, setValues] = useState(initialValues);
 
   const handleChange = (e) => {
@@ -18,12 +18,13 @@ export const useForm = ({ initialValues = {} } = {}) => {
   };
 
   const handleEditorChange = (value, e) => {
-    console.log(e);
     setValues((prevValues) => ({ ...prevValues, content: value }));
+    console.log(values);
   };
 
   const handleSubmit = (onSubmit) => {
     return (e) => {
+      console.log(values);
       if (e && typeof e.preventDefault === 'function') {
         e.preventDefault();
       }
