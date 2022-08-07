@@ -40,7 +40,7 @@ function Editor() {
           type="text"
           value={values.title || ''}
           onChange={handleChange}
-          className="border-b-4 mb-5 h-12 text-2xl"
+          className="mb-5 h-12 text-2xl rounded"
           placeholder="your title goes here"
         />
         <div className="flex-1">
@@ -51,15 +51,41 @@ function Editor() {
             height={800}
           />
         </div>
-        <input
-          name="isPublished"
-          type="checkbox"
-          checked={values.isPublished || false}
-          onChange={handleChange}
-        />
-        <button type="submit" onClick={handleSubmit(onSubmit)}>
-          Submit
-        </button>
+        <div className="flex gap-5 mt-5 justify-between">
+          <div className="flex items-center">
+            <input
+              type="text"
+              name="tags"
+              placeholder="tags"
+              className="mr-5 h-12 text-2xl focus:none rounded"
+            />
+          </div>
+          <div className="flex items-center justify-end gap-5">
+            <div className="flex items-center">
+              <input
+                name="isPublished"
+                type="checkbox"
+                checked={values.isPublished || false}
+                onChange={handleChange}
+                className="rounded text-green-500"
+              />
+              <label
+                htmlFor="isPublished"
+                className="ml-2"
+                onClick={handleChange}
+              >
+                Publish
+              </label>
+            </div>
+            <button
+              type="submit"
+              onClick={handleSubmit(onSubmit)}
+              className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   );
