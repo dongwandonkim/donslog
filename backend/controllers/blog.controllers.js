@@ -33,11 +33,19 @@ const createBlog = async (req, res) => {
       user: req.user.id,
     });
 
-    return res.send({
-      success: true,
-      message: isPublished ? 'Blog created and published' : 'Blog created',
-      data: blog,
-    });
+    setTimeout(() => {
+      return res.send({
+        success: true,
+        message: isPublished ? 'Blog created and published' : 'Blog created',
+        data: blog,
+      });
+    }, 2000);
+
+    // return res.send({
+    //   success: true,
+    //   message: isPublished ? 'Blog created and published' : 'Blog created',
+    //   data: blog,
+    // });
   } catch (error) {
     return res.status(500).send({ success: false, message: error.message });
   }

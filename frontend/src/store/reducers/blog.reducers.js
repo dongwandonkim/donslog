@@ -2,9 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { createBlog } from '../../api/blog';
 
 const blogState = {
-  title: '',
-  content: '',
-  isPublished: false,
+  blog: { title: '', content: '', isPublished: false },
+  isSubmitting: false,
 };
 
 export const postBlog = createAsyncThunk(
@@ -26,6 +25,17 @@ const blogSlice = createSlice({
   name: 'blog',
   initialState: blogState,
   reducers: {},
+  extraReducers: {
+    [postBlog.pending]: (state, action) => {
+      state.isSubmitting = true;
+    },
+    [postBlog.fulfilled]: (state, action) => {
+      state.isSubmitting = false;
+    },
+    [postBlog.rejected]: (state, action) => {
+      state.isSubmitting = false;
+    },
+  },
 });
 // export const { createBlog } = blogSlice.actions;
 export default blogSlice.reducer;

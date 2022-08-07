@@ -1,11 +1,12 @@
 import React from 'react';
 import MDEditor from '@uiw/react-md-editor';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { postBlog } from '../store/reducers/blog.reducers';
 import { useForm } from '../hooks/useForm';
 
 function Editor() {
   const dispatch = useDispatch();
+  const { isSubmitting } = useSelector((state) => state.blog);
 
   const initialValues = {
     title: '',
@@ -77,13 +78,27 @@ function Editor() {
                 Publish
               </label>
             </div>
-            <button
-              type="submit"
-              onClick={handleSubmit(onSubmit)}
-              className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-            >
-              Submit
-            </button>
+            {isSubmitting ? (
+              <button
+                type="button"
+                className="flex justify-center items-center bg-gray-100 w-60 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+                disabled
+              >
+                <svg
+                  class="animate-spin h-5 w-5 mr-3 border-b-2 border-gray-900 rounded-full"
+                  viewBox="0 0 24 24"
+                ></svg>
+                Saving...
+              </button>
+            ) : (
+              <button
+                type="submit"
+                onClick={handleSubmit(onSubmit)}
+                className="bg-white w-60 hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+              >
+                Submit
+              </button>
+            )}
           </div>
         </div>
       </form>
