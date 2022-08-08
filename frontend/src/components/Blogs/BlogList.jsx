@@ -4,9 +4,10 @@ import BlogListItem from './BlogListItem';
 function BlogList() {
   return (
     <div className="flex flex-col items-center">
-      <div className="flex items-center justify-between">
-        <BlogListItem />
-      </div>
+      <BlogListItem />
+      <BlogListItem />
+      <BlogListItem />
+      <BlogListItem />
     </div>
   );
 }
