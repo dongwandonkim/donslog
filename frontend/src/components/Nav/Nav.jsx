@@ -27,7 +27,9 @@ function Nav() {
       </div>
       <div className="flex items-center space-x-5">
         <button className="p-2">About Me</button>
-        <button className="p-2">Blogs</button>
+        <button className="p-2" onClick={() => navigate('/blogs')}>
+          Blogs
+        </button>
         {isAuthenticated && role === 'admin' && (
           <button className="p-2" onClick={() => navigate('/write')}>
             Write

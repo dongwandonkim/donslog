@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import { Route, Routes } from 'react-router-dom';
 import Editor from './pages/Editor';
 import useGetRole from './hooks/useGetRole';
+import BlogList from './components/Blogs/BlogList';
 
 function App() {
   const role = useGetRole();
@@ -20,6 +21,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="login" element={<Login />} />
               {/* <Route path="register" element={} /> */}
+              <Route path="/blogs" element={<BlogList />} />
               <Route
                 path="write"
                 element={role === 'admin' ? <Editor /> : <>Not allowed</>}

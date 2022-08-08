@@ -33,19 +33,11 @@ const createBlog = async (req, res) => {
       user: req.user.id,
     });
 
-    setTimeout(() => {
-      return res.send({
-        success: true,
-        message: isPublished ? 'Blog created and published' : 'Blog created',
-        data: blog,
-      });
-    }, 2000);
-
-    // return res.send({
-    //   success: true,
-    //   message: isPublished ? 'Blog created and published' : 'Blog created',
-    //   data: blog,
-    // });
+    return res.send({
+      success: true,
+      message: isPublished ? 'Blog created and published' : 'Blog created',
+      data: blog,
+    });
   } catch (error) {
     return res.status(500).send({ success: false, message: error.message });
   }
@@ -53,8 +45,12 @@ const createBlog = async (req, res) => {
 
 const getAllBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find();
-    res.send(blogs);
+    const blogs = await Blog.find({ isPublished: true });
+    res.send({
+      success: true,
+      message: 'retrieved all published blogs',
+      data: blogs,
+    });
   } catch (error) {
     return res.status(500).send({ success: false, message: error.message });
   }
