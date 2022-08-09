@@ -1,16 +1,16 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getAuthStatus, logoutApi } from '../../store/reducers/auth.reducers';
-import useGetRole from '../../hooks/useGetRole';
+import useGetAuth from '../../hooks/useGetAuth';
 import { Dropdown } from 'flowbite-react';
 
 function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuthenticated, user } = useSelector((state) => state.auth);
-  const role = useGetRole();
+
+  const { user, isAuthenticated } = useGetAuth();
 
   const onLogout = () => {
     dispatch(logoutApi());
@@ -31,7 +31,7 @@ function Nav() {
         <button className="p-2" onClick={() => navigate('/blogs')}>
           Blogs
         </button>
-        {isAuthenticated && role === 'admin' && (
+        {isAuthenticated && user?.role === 'admin' && (
           <button className="p-2" onClick={() => navigate('/write')}>
             Write
           </button>
@@ -52,14 +52,14 @@ function Nav() {
         <Dropdown label="Menu" inline={true}>
           <Dropdown.Header>
             <div>Welcome,</div>
-            <div>{user.email}</div>
+            <div>{user?.email}</div>
           </Dropdown.Header>
           <Dropdown.Item onClick={() => navigate('/')}>About Me</Dropdown.Item>
           <Dropdown.Item onClick={() => navigate('/blogs')}>
             Blogs
           </Dropdown.Item>
 
-          {isAuthenticated && role === 'admin' && (
+          {isAuthenticated && user.role === 'admin' && (
             <Dropdown.Item onClick={() => navigate('/write')}>
               Write
             </Dropdown.Item>

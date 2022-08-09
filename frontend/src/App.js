@@ -4,11 +4,11 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login';
 import { Route, Routes } from 'react-router-dom';
 import Editor from './pages/Editor';
-import useGetRole from './hooks/useGetRole';
+import useGetAuth from './hooks/useGetAuth';
 import BlogList from './components/Blogs/BlogList';
 
 function App() {
-  const role = useGetRole();
+  const { user } = useGetAuth();
 
   return (
     <div className="App h-screen">
@@ -24,7 +24,7 @@ function App() {
               <Route path="/blogs" element={<BlogList />} />
               <Route
                 path="write"
-                element={role === 'admin' ? <Editor /> : <>Not allowed</>}
+                element={user?.role === 'admin' ? <Editor /> : <>Not allowed</>}
               />
             </Routes>
           </div>
