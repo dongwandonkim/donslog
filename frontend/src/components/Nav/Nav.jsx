@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -17,9 +17,13 @@ function Nav() {
     navigate('/');
   };
 
-  useEffect(() => {
+  const getUserAuth = useCallback(() => {
     dispatch(getAuthStatus());
-  }, [isAuthenticated]);
+  }, [dispatch]);
+
+  useEffect(() => {
+    getUserAuth();
+  }, [getUserAuth]);
 
   return (
     <div className="flex pt-4 justify-between border-b-2 border-black h-14 text-xl">
