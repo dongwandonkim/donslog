@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getAuthStatus, logoutApi } from '../../store/reducers/auth.reducers';
 import useGetRole from '../../hooks/useGetRole';
+import { Dropdown } from 'flowbite-react';
 
 function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
   const role = useGetRole();
 
   const onLogout = () => {
@@ -48,20 +49,35 @@ function Nav() {
       </div>
 
       <div className="flex sm:hidden items-center">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-6 h-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
+        <Dropdown label="Menu" inline={true}>
+          <Dropdown.Header>
+            <div>Welcome,</div>
+            <div>{user.email}</div>
+          </Dropdown.Header>
+          <Dropdown.Item onClick={() => navigate('/')}>About Me</Dropdown.Item>
+          <Dropdown.Item onClick={() => navigate('/blogs')}>
+            Blogs
+          </Dropdown.Item>
+
+          {isAuthenticated && role === 'admin' && (
+            <Dropdown.Item onClick={() => navigate('/write')}>
+              Write
+            </Dropdown.Item>
+          )}
+          <Dropdown.Divider />
+          {isAuthenticated ? (
+            <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
+          ) : (
+            <>
+              <Dropdown.Item onClick={() => navigate('/login')}>
+                Login
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => navigate('/register')}>
+                Register
+              </Dropdown.Item>
+            </>
+          )}
+        </Dropdown>
       </div>
     </div>
   );
