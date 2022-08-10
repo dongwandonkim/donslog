@@ -9,7 +9,6 @@ const blogState = {
 export const postBlog = createAsyncThunk(
   'blog/create',
   async ({ blogData }, thunkApi) => {
-    console.log(blogData);
     const response = await createBlog(
       blogData.title,
       blogData.content,
@@ -19,6 +18,11 @@ export const postBlog = createAsyncThunk(
       return thunkApi.rejectWithValue(response.error);
     }
   }
+);
+
+export const getAllBlogs = createAsyncThunk(
+  'blog/getAllBlogs',
+  async (_, thunkApi) => {}
 );
 
 const blogSlice = createSlice({
