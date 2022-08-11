@@ -13,7 +13,7 @@ router
   );
 
 router
-  .route('/:id')
+  .route('/:blogId')
   .get(blogController.getBlogById)
   .put(
     authController.protect,

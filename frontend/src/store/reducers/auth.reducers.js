@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { login, getAuth, logout } from '../../api/auth';
 
 const authState = {
-  isAuthenticated: false,
   user: null,
 };
 
@@ -49,23 +48,18 @@ const authSlice = createSlice({
   initialState: authState,
   extraReducers: {
     [loginApi.fulfilled]: (state, action) => {
-      state.isAuthenticated = true;
       state.user = action.payload.data;
     },
     [loginApi.rejected]: (state, action) => {
-      state.isAuthenticated = false;
       state.user = null;
     },
     [getAuthStatus.fulfilled]: (state, action) => {
-      state.isAuthenticated = true;
-      state.user = action.payload?.data || null;
+      state.user = action.payload.data || null;
     },
     [getAuthStatus.rejected]: (state, action) => {
-      state.isAuthenticated = false;
       state.user = null;
     },
     [logoutApi.fulfilled]: (state, action) => {
-      state.isAuthenticated = false;
       state.user = null;
     },
   },

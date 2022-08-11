@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { getAuthStatus } from '../store/reducers/auth.reducers';
 // TODO: change this hook to get all auth info
 function useGetAuth() {
+  const dispatch = useDispatch();
+
   const { user, isAuthenticated } = useSelector((state) => state.auth);
-  const [auth, setAuth] = useState({ user: null, isAuthenticated: false });
+  // const [auth, setAuth] = useState({ user: null, isAuthenticated: false });
 
   useEffect(() => {
-    setAuth({ user, isAuthenticated });
-  }, [isAuthenticated, user]);
+    dispatch(getAuthStatus());
+  }, [dispatch]);
 
-  return auth;
+  return { user, isAuthenticated };
 }
 
 export default useGetAuth;

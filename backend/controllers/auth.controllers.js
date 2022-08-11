@@ -60,7 +60,7 @@ const login = async (req, res) => {
     res.send({
       success: true,
       message: 'User logged in successfully',
-      data: user.email,
+      data: { email: user.email, role: user.role },
     });
   } catch (error) {
     res.status(500).send({ success: false, message: error.message });

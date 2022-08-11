@@ -8,14 +8,13 @@ import useGetAuth from './hooks/useGetAuth';
 import BlogList from './components/Blogs/BlogList';
 
 function App() {
-  const { user } = useGetAuth();
+  const { user, isAuthenticated } = useGetAuth();
 
   return (
     <div className="App h-screen">
       <div className="container mx-auto font-sans">
         <div className="flex flex-col">
-          {/* <Nav isAuthenticated={isAuthenticated} /> */}
-          <Nav />
+          <Nav user={user} isAuthenticated={isAuthenticated} />
           <div className="container mt-14">
             <Routes>
               <Route path="/" element={<Home />} />

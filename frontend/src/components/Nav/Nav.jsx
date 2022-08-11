@@ -1,15 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getAuthStatus, logoutApi } from '../../store/reducers/auth.reducers';
-import useGetAuth from '../../hooks/useGetAuth';
+import { logoutApi } from '../../store/reducers/auth.reducers';
 import { Dropdown } from 'flowbite-react';
 
-function Nav() {
+function Nav({ user, isAuthenticated }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const { user, isAuthenticated } = useGetAuth();
 
   const onLogout = () => {
     dispatch(logoutApi());
@@ -17,10 +14,8 @@ function Nav() {
   };
 
   useEffect(() => {
-    // getUserAuth();
-    dispatch(getAuthStatus());
     console.log('render Nav');
-  }, [dispatch]);
+  });
 
   // TODO: change Nav to use Flowbite Nav component
   return (
@@ -33,7 +28,7 @@ function Nav() {
         <button className="p-2" onClick={() => navigate('/blogs')}>
           Blogs
         </button>
-        {isAuthenticated && user?.role === 'admin' && (
+        {user && user.role === 'admin' && (
           <button className="p-2" onClick={() => navigate('/write')}>
             Write
           </button>
@@ -41,8 +36,8 @@ function Nav() {
       </div>
 
       <div className="hidden md:flex items-center space-x-4">
-        {isAuthenticated && <button onClick={onLogout}>Logout</button>}
-        {!isAuthenticated && (
+        {user && <button onClick={onLogout}>Logout</button>}
+        {!user && (
           <>
             <button onClick={() => navigate('/login')}>Login</button>
             <div>Register</div>
@@ -52,10 +47,10 @@ function Nav() {
 
       <div className="flex md:hidden items-center">
         <Dropdown label="Menu" inline>
-          {isAuthenticated && (
+          {user && (
             <Dropdown.Header>
               <div>Welcome,</div>
-              <div>{user?.email}</div>
+              <div>{user.email}</div>
             </Dropdown.Header>
           )}
 
@@ -64,13 +59,13 @@ function Nav() {
             Blogs
           </Dropdown.Item>
 
-          {isAuthenticated && user.role === 'admin' && (
+          {user && user.role === 'admin' && (
             <Dropdown.Item onClick={() => navigate('/write')}>
               Write
             </Dropdown.Item>
           )}
           <Dropdown.Divider />
-          {isAuthenticated ? (
+          {user ? (
             <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
           ) : (
             <>
