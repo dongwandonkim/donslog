@@ -58,8 +58,16 @@ const getAllBlogs = async (req, res) => {
 
 const getBlogById = async (req, res) => {
   try {
-    const blog = await Blog.findById(req.params.id);
-    res.send(blog);
+    const { blogId } = req.params;
+
+    if (!isValidObjectId(blogId)) {
+      return res
+        .status(400)
+        .send({ success: false, message: 'invalid blogId' });
+    }
+
+    const blog = await Blog.findById(blogId);
+    res.send({ success: true, message: 'retrieved a blog post', data: blog });
   } catch (error) {
     return res.status(500).send({ success: false, message: error.message });
   }
