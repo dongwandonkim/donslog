@@ -5,9 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { loginApi } from '../store/reducers/auth.reducers';
 import { useForm } from '../hooks/useForm';
 
-function Login() {
+function Login({ user }) {
   const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
   const initialValues = {
@@ -23,10 +22,10 @@ function Login() {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (user) {
       navigate('/');
     }
-  }, [isAuthenticated]);
+  }, [user]);
 
   return (
     <div className="flex justify-center">

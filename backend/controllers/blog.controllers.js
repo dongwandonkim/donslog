@@ -75,10 +75,40 @@ const getBlogById = async (req, res) => {
 
 const updateBlog = async (req, res) => {
   try {
-    const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
+    const { blogId } = req.params;
+
+    if (!isValidObjectId(blogId)) {
+      return res
+        .status(400)
+        .send({ success: false, message: 'invalid blogId' });
+    }
+
+    const { title, content, isPublished } = req.body;
+
+    if (typeof title !== 'string' || !title.length) {
+      return res
+        .status(400)
+        .send({ success: false, message: 'Title is required' });
+    }
+    if (typeof content !== 'string' || !content.length) {
+      return res
+        .status(400)
+        .send({ success: false, message: 'Content is required' });
+    }
+    if (typeof isPublished !== 'boolean') {
+      return res
+        .status(400)
+        .send({ success: false, message: 'isPublish must be a boolean' });
+    }
+
+    const blog = await Blog.findByIdAndUpdate(
+      blogId,
+      { title, content, isPublished },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
     res.send(blog);
   } catch (error) {
     return res.status(500).send({ success: false, message: error.message });
