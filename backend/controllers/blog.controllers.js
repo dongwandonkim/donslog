@@ -15,7 +15,7 @@ const createBlog = async (req, res) => {
         .status(400)
         .send({ success: false, message: 'Content is required' });
     }
-    if (typeof isPublished !== 'boolean') {
+    if (isPublished && typeof isPublished !== 'boolean') {
       return res
         .status(400)
         .send({ success: false, message: 'isPublish must be a boolean' });
@@ -109,7 +109,7 @@ const updateBlog = async (req, res) => {
         runValidators: true,
       }
     );
-    res.send(blog);
+    res.send({ success: true, message: 'updated a blog post', data: blog });
   } catch (error) {
     return res.status(500).send({ success: false, message: error.message });
   }
@@ -117,10 +117,33 @@ const updateBlog = async (req, res) => {
 
 const publishBlog = async (req, res) => {
   try {
-    const blog = await Blog.findByIdAndUpdate(req.params.id, {
-      isPublished: true,
-    });
-    res.send(blog);
+    const { blogId } = req.params;
+
+    if (!isValidObjectId(blogId)) {
+      return res
+        .status(400)
+        .send({ success: false, message: 'invalid blogId' });
+    }
+
+    const { isPublished } = req.body;
+
+    if (typeof isPublished !== 'boolean') {
+      return res
+        .status(400)
+        .send({ success: false, message: 'isPublish must be a boolean' });
+    }
+
+    const blog = await Blog.findByIdAndUpdate(
+      blogId,
+      {
+        isPublished,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+    res.send({ success: true, message: 'the blog is published', data: blog });
   } catch (error) {
     return res.status(500).send({ success: false, message: error.message });
   }
