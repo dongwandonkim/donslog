@@ -151,8 +151,25 @@ const publishBlog = async (req, res) => {
 
 const deleteBlog = async (req, res) => {
   try {
-    const blog = await Blog.findByIdAndDelete(req.params.id);
-    res.send(blog);
+    const { blogId } = req.params;
+
+    if (!isValidObjectId(blogId)) {
+      return res
+        .status(400)
+        .send({ success: false, message: 'invalid blogId' });
+    }
+
+    const blog = await Blog.findById(blogId);
+
+    if (blog.isPublished) {
+      return res
+        .status(400)
+        .send({ success: false, message: 'cannot delete published blog' });
+    }
+
+    await blog.remove();
+
+    res.send({ success: true, message: 'the blog is deleted' });
   } catch (error) {
     return res.status(500).send({ success: false, message: error.message });
   }
