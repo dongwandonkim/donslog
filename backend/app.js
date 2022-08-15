@@ -29,5 +29,7 @@ const userRouter = require('./routes/user.routes');
 app.use('/api/users', userRouter);
 const blogRouter = require('./routes/blog.routes');
 app.use('/api/blogs', blogRouter);
+const commentRouter = require('./routes/comment.routes');
+app.use('/api/blog/:blogId/comments', commentRouter);
 
 module.exports = app;
