@@ -1,5 +1,5 @@
 const { isValidObjectId } = require('mongoose');
-const Blog = require('../models/Blog');
+const { Blog } = require('../models');
 
 const createBlog = async (req, res) => {
   try {

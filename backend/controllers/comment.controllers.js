@@ -1,6 +1,5 @@
-const Comment = require('../models/Comment');
 const { isValidObjectId } = require('mongoose');
-const Blog = require('../models/Blog');
+const { Blog, Comment } = require('../models');
 
 const createComment = async (req, res) => {
   try {
