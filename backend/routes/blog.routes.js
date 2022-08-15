@@ -33,4 +33,4 @@ router.patch(
   blogController.publishBlog
 );
 
-module.exports = router;
+module.exports = { blogRouter: router };

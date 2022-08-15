@@ -12,25 +12,4 @@ router
     commentController.createComment
   );
 
-// router
-//   .route('/:blogId')
-//   .get(commentController.getBlogById)
-//   .put(
-//     authController.protect,
-//     authController.restrictTo('admin'),
-//     commentController.updateBlog
-//   )
-//   .delete(
-//     authController.protect,
-//     authController.restrictTo('admin'),
-//     commentController.deleteBlog
-//   );
-
-// router.patch(
-//   '/:id/publish',
-//   authController.protect,
-//   authController.restrictTo('admin'),
-//   commentController.publishBlog
-// );
-
-module.exports = router;
+module.exports = { commentRouter: router };
