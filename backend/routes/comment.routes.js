@@ -5,7 +5,7 @@ const authController = require('../controllers/auth.controllers');
 
 router
   .route('/')
-  // .get(commentController.getAllBlogs)
+  .get(commentController.getAllComments)
   .post(
     authController.protect,
     authController.restrictTo('admin', 'user'),

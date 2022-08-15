@@ -26,7 +26,7 @@ const createComment = async (req, res) => {
       });
 
     const blog = await Blog.findById(blogId).where({ isPublished: true });
-    console.log(blog);
+
     if (!blog) {
       return res
         .status(400)
@@ -49,4 +49,26 @@ const createComment = async (req, res) => {
   }
 };
 
-module.exports = { createComment };
+const getAllComments = async (req, res) => {
+  try {
+    const { blogId } = req.params;
+
+    if (!isValidObjectId(blogId))
+      return res.status(400).send({
+        success: false,
+        message: 'Invalid blogId',
+      });
+
+    const comments = await Comment.find({ blog: blogId });
+
+    res.send({
+      success: true,
+      message: 'all comments retrieved',
+      data: comments,
+    });
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message });
+  }
+};
+
+module.exports = { createComment, getAllComments };
